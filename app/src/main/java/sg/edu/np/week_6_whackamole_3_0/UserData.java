@@ -1,20 +1,19 @@
 package sg.edu.np.week_6_whackamole_3_0;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserData {
+public class UserData implements Serializable {
 
     /* NOTE:
             THIS OBJECT DATA IS GIVEN.
             DO NOT CHANGE ANYTHING IN HERE.
             YOU ARE TO USE THIS UserData as it is in your answers.
-
         The UserData consist of the following:
         1. UserName
         2. Password
         3. A list of Scores related to a list of corresponding Levels
         4. A list of Levels related to a list of corresponding Scores
-
      */
     private String MyUserName;
     private String MyPassword;

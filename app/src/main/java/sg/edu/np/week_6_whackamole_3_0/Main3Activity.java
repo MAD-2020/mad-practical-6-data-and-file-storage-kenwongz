@@ -28,6 +28,12 @@ public class Main3Activity extends AppCompatActivity {
     private static final String FILENAME = "Main3Activity.java";
     private static final String TAG = "Whack-A-Mole3.0!";
 
+    private RecyclerView recyclerView;
+    private CustomScoreAdaptor mCustomScoreAdaptor;
+    private RecyclerView.LayoutManager layoutManager;
+
+    Button mButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,14 +41,37 @@ public class Main3Activity extends AppCompatActivity {
         /* Hint:
         This method receives the username account data and looks up the database for find the
         corresponding information to display in the recyclerView for the level selections page.
-
         Log.v(TAG, FILENAME + ": Show level for User: "+ userName);
          */
+        UserData userData = (UserData) getIntent().getSerializableExtra("myUser");
+        Log.v(TAG, FILENAME + ": Show level for User: "+ userData.getMyUserName());
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mCustomScoreAdaptor = new CustomScoreAdaptor(this, userData);
+        recyclerView.setAdapter(mCustomScoreAdaptor);
+
+        mButton = findViewById(R.id.Backbtn);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToLogin();
+            }
+        });
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         finish();
+    }
+
+    private void moveToLogin(){
+        Intent intent = new Intent(Main3Activity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
